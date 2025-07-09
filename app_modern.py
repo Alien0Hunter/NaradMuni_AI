@@ -7,14 +7,18 @@ from PIL import Image
 # ----------------- Page Setup -----------------
 st.set_page_config(page_title="NaradMuni AI", layout="wide")
 
-st.markdown('''
-    <div style="text-align:center; padding: 1rem;">
-        <img src="NaradMuni_Logo.png" width="120" style="margin-bottom: 0.8rem; filter: drop-shadow(0 0 4px #38bdf8);"/>
-        <h1 style="font-size: 2.6rem; color: #38bdf8; font-weight:600;">NaradMuni AI</h1>
-        <p style="font-size: 1.1rem; color: #cbd5e1;">Your AI Assistant for Threat Hunting & Threat Intelligence</p>
-        <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.4rem;">⚡ Powered by <a href="https://cyrac.in" target="_blank" style="color: #38bdf8;">CyRAC.in</a></p>
-    </div>
-''', unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([2, 3, 2])
+with col2:
+    import os
+    logo_path = "NaradMuni_Logo.png"
+    if os.path.exists(logo_path):
+        st.image(Image.open(logo_path), width=100, use_container_width=False)
+    else:
+        st.warning("Logo image not found. Please check the filename and path.")
+    st.markdown('<h1 style="text-align:center; color:#38bdf8;">NaradMuni AI</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center; color:#cbd5e1;">Your AI Assistant for Threat Hunting & Threat Intelligence</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center; font-size:0.9rem; color:#64748b;">⚡ Powered by <a href="https://cyrac.in" target="_blank" style="color:#38bdf8;">CyRAC.in</a></p>', unsafe_allow_html=True)
 
 # Custom CSS styling
 st.markdown("""
