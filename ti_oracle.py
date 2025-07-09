@@ -1,9 +1,15 @@
+import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
+
+VT_API_KEY = st.secrets.get("VT_API_KEY", os.getenv("VT_API_KEY"))
 import os
 import requests
 
-VT_API_KEY = os.getenv("VT_API_KEY")
-
 def lookup_ioc(ioc):
+    if not VT_API_KEY:
+        return {"error": "VirusTotal API key not set. Please set the VT_API_KEY environment variable."}
     headers = {
         "x-apikey": VT_API_KEY
     }

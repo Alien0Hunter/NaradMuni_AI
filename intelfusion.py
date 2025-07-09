@@ -1,13 +1,18 @@
-
 import os
 import requests
+import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ABUSEIPDB_API_KEY = st.secrets.get("ABUSEIPDB_API_KEY", os.getenv("ABUSEIPDB_API_KEY"))
+OTX_API_KEY = st.secrets.get("OTX_API_KEY", os.getenv("OTX_API_KEY"))
 
 def enrich_with_abuseipdb(ioc):
-    api_key = os.getenv("ABUSEIPDB_API_KEY")
-    if not api_key:
+    if not ABUSEIPDB_API_KEY:
         return {"error": "Missing AbuseIPDB API key."}
     url = "https://api.abuseipdb.com/api/v2/check"
-    headers = {"Key": api_key, "Accept": "application/json"}
+    headers = {"X-Apikey": ABUSEIPDB_API_KEY, "Accept": "application/json"}
     params = {"ipAddress": ioc, "maxAgeInDays": 90}
     try:
         response = requests.get(url, headers=headers, params=params)
@@ -24,10 +29,9 @@ def enrich_with_abuseipdb(ioc):
         return {"error": f"AbuseIPDB Error: {str(e)}"}
 
 def enrich_with_otx(ioc):
-    api_key = os.getenv("OTX_API_KEY")
-    if not api_key:
+    if not OTX_API_KEY:
         return {"error": "Missing OTX API key."}
-    headers = {"X-OTX-API-KEY": api_key}
+    headers = {"X-OTX-API-KEY": OTX_API_KEY}
     try:
         response = requests.get(f"https://otx.alienvault.com/api/v1/indicators/IPv4/{ioc}/general", headers=headers)
         data = response.json()
