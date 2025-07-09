@@ -1,0 +1,10 @@
+# Core dependencies
+streamlit
+Pillow
+requests
+tqdm
+
+# LangChain
+langchain
+langchain-community
+chromadb
