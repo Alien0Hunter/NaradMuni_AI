@@ -25,7 +25,7 @@ Built for SOC analysts, DFIR teams, and cybersecurity researchers.
 🌐 Live Demo
 
 Try it here (via Streamlit Cloud):
-👉 https://naradmuni.streamlit.app
+👉 https://naradmuni-ai-cyrac.streamlit.app/
 
 ⸻
 
