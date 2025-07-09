@@ -1,9 +1,11 @@
 import streamlit as st
-from dotenv import load_dotenv
-
-load_dotenv()
-
-VT_API_KEY = st.secrets.get("VT_API_KEY", os.getenv("VT_API_KEY"))
+import os
+try:
+    VT_API_KEY = st.secrets["VT_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    VT_API_KEY = os.getenv("VT_API_KEY")
 import os
 import requests
 

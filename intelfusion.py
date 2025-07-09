@@ -5,8 +5,19 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ABUSEIPDB_API_KEY = st.secrets.get("ABUSEIPDB_API_KEY", os.getenv("ABUSEIPDB_API_KEY"))
-OTX_API_KEY = st.secrets.get("OTX_API_KEY", os.getenv("OTX_API_KEY"))
+try:
+    ABUSEIPDB_API_KEY = st.secrets["ABUSEIPDB_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    ABUSEIPDB_API_KEY = os.getenv("ABUSEIPDB_API_KEY")
+
+try:
+    OTX_API_KEY = st.secrets["OTX_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    OTX_API_KEY = os.getenv("OTX_API_KEY")
 
 def enrich_with_abuseipdb(ioc):
     if not ABUSEIPDB_API_KEY:
